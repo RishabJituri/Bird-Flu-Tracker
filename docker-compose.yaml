@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  localstack:
+    image: localstack/localstack
+    ports:
+      - "4566:4566"   # Main LocalStack API port
+      - "4510-4559:4510-4559"  # Additional service ports
+    environment:
+      - SERVICES=s3,dynamodb,lambda,sqs,sns
+      - DEBUG=1
+      - DATA_DIR=/tmp/localstack/data
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+      - "./localstack:/tmp/localstack"
